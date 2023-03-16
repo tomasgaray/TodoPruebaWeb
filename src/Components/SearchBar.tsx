@@ -21,7 +21,7 @@ function SearchBar(){
           <Col xs={24} sm={24} md={15} lg={14}  xl={12} span={24}>
             {/* <Input prefix={<SearchOutlined />} onChange={(e)=> search(e.target.value)} size="large" placeholder="Busque una tarea" /> */}
             <DebounceInput
-                placeholder="Busque una tarea"
+                placeholder="Busque una tarea por título o descripción"
                 style={{width:"100%"}}
                 onChange={(e:any)=> search(e.target?.value)} 
                 value=""

@@ -115,6 +115,7 @@ function remove(taskId:number) {
         taskService.remove(taskId)
             .then(()=> { 
                     dispatch(success(taskId));
+                    dispatch(alertActions.success("Eliminada correctamente"));
                 },
 
             ).catch((error)=>{

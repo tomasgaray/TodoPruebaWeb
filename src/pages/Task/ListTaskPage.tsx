@@ -5,8 +5,8 @@ import Empty from "antd/es/empty";
 import { Content } from "antd/es/layout/layout";
 import List from "antd/es/list";
 import Row from "antd/es/row";
-import Spin from "antd/es/spin";
 import Title from "antd/es/typography/Title";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../app/hooks";
 import { TypeDialog } from "../../enums/type.dialog";
@@ -20,6 +20,10 @@ function ListTaskPage(){
   const loading  = useSelector((state: any) => state.tasksReducer.loading as boolean);
   const dispatch = useAppDispatch();  
     
+    useEffect(()=>{
+        dispatch(taskActions.get());
+    },[]);
+
     const addTask = ()=>{
         dispatch(taskActions.openModalAddEdit({
             open : true,
@@ -35,18 +39,18 @@ function ListTaskPage(){
                 <Col xs={24} sm={24} md={15} lg={14} xl={12} span={24}>
                     <Title level={3}>Listado de Tareas</Title>
                     {
-                        (tasks??[]).length ==0  ? <></> : <Button type="primary" disabled={loading} onClick={addTask}>Nueva</Button>
+                        (tasks??[]).length ===0  ? <></> : <Button type="primary" disabled={loading} onClick={addTask}>Nueva</Button>
                     }
                     <Divider />
-                    { loading? <Spin /> : <></>}
                     {
-                        (tasks??[]).length ==0 ? 
+                        (tasks??[]).length ===0 && !loading ? 
                         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Tu lista de tareas se encuentra vacia" >
-                        <Button disabled={loading} onClick={addTask} type="primary">Nueva tarea</Button>
+                         <Button disabled={loading} onClick={addTask} type="primary">Nueva tarea</Button>
                         </Empty>
                         :<List
                             itemLayout="horizontal"
                             dataSource={tasks}
+                            loading={loading}
                             renderItem={(item, index) => (
                                 <TaskItem item={item}/>
                             )}

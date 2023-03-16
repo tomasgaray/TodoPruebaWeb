@@ -49,7 +49,7 @@ import Checkbox from 'antd/es/checkbox';
     };
 
     return (
-        <Modal title={openModalAddEdit.type  == TypeDialog.add? "Agregar" : `Editar: ${inputs.title}`} 
+        <Modal title={openModalAddEdit.type  === TypeDialog.add? "Agregar" : `Editar: ${inputs.title}`} 
         open={openModalAddEdit?.open??false}  okText="Guardar" cancelText="Cancelar" confirmLoading={openModalAddEdit.loading} onOk={onSubmit} onCancel={handleCancel}>
             <Input disabled={openModalAddEdit.loading} id="title" name="title" placeholder="Título"  value={inputs.title || ""} onChange={handleChange} 
                 prefix={<FontSizeOutlined />} status={(!inputs?.title) && isSubmit ? "error": ""} />

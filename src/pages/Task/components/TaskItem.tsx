@@ -8,6 +8,7 @@ import { taskActions } from "../actions/task.action";
 import { TypeDialog } from "../../../enums/type.dialog";
 import { useAppDispatch } from "../../../app/hooks";
 import { useSelector } from "react-redux";
+import Checkbox from "antd/es/checkbox";
 
 function TaskItem(props: any) {
     const { item} = props;
@@ -24,6 +25,10 @@ function TaskItem(props: any) {
         type : TypeDialog.edit,
         loading: false
       }));
+    }
+
+    const changeStatus = (taskId:number, completed:boolean)=> {
+      dispatch(taskActions.changeStatus(taskId, completed));
     }
 
     return(
@@ -45,10 +50,10 @@ function TaskItem(props: any) {
    
                   ]}>
                 <List.Item.Meta 
-                    // avatar={ 
-                    //   <Checkbox onChange={()=>{}}></Checkbox>
-                    // }
-                    title={<span onClick={()=>openTask(item)} >{item.title}</span>} description="Tarea creada" />
+                    avatar={ 
+                      <Checkbox style={{fontSize:"15px"}} checked={item.completed} onChange={(e)=>{changeStatus(item.taskId, e.target.checked)}}></Checkbox>
+                    }
+                    title={<span onClick={()=>openTask(item)} >{item.title}</span>} description={item.description} />
                 </List.Item>
     )
 }

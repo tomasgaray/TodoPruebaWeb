@@ -35,7 +35,7 @@ import Checkbox from 'antd/es/checkbox';
 
     const onSubmit = () => {
         setIsSubmit(true);
-        if (!inputs.title) return;
+        if (!inputs.title && !inputs.description) return;
         if(openModalAddEdit?.type ===TypeDialog.add){
             dispatch(taskActions.add(inputs));
         }
@@ -54,7 +54,8 @@ import Checkbox from 'antd/es/checkbox';
             <Input disabled={openModalAddEdit.loading} id="title" name="title" placeholder="Título"  value={inputs.title || ""} onChange={handleChange} 
                 prefix={<FontSizeOutlined />} status={(!inputs?.title) && isSubmit ? "error": ""} />
                 <br /> <br />
-            <TextArea disabled={openModalAddEdit.loading} id="description" name="description" rows={4} value={inputs.description || ""}  onChange={handleChange} placeholder="Descripción" maxLength={200}  />        
+            <TextArea disabled={openModalAddEdit.loading} id="description" name="description" rows={4} value={inputs.description || ""}  onChange={handleChange} placeholder="Descripción"
+             maxLength={100}  status={(!inputs?.description) && isSubmit ? "error": ""}/>        
             <Checkbox name="completed" checked={inputs.completed } onChange={handleChangeCheck}> {inputs.completed ? "Completa": "Incompleta"}</Checkbox>
         </Modal>
     );
